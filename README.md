@@ -24,4 +24,4 @@ In this workspace, most of files are normal typescript files, so we hope to enab
 Some core files:
 
 - [`nested/share-config.ts`](./nested/share-config.ts), includes the config for `package_a` and project root.
-- [`override/package_b/vite.config.ts`](./override/package_b/vite.config.ts), includes the code we disable all `typescript` rules by hand.
+- [`override/vite.config.ts`](./override/vite.config.ts), includes the code we disable all `typescript` rules by hand.
