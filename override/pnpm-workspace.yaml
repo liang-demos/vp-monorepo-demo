@@ -1,25 +1,9 @@
 packages:
-  - apps/*
-  - apps/*/packages/*
-  - packages/*
-  - tools/*
+  - package_*
 
 catalogMode: prefer
 
 catalog:
   '@types/node': ^24
   typescript: ^5
-  vite: npm:@voidzero-dev/vite-plus-core@latest
   vite-plus: latest
-  vitest: 4.1.9
-  vue: ^3.5.0
-overrides:
-  vite: 'catalog:'
-  vitest: 'catalog:'
-peerDependencyRules:
-  allowAny:
-    - vite
-    - vitest
-  allowedVersions:
-    vite: '*'
-    vitest: '*'

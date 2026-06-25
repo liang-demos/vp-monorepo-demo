@@ -9,3 +9,7 @@ fmt:
 fmt-check:
   cd nested && vp fmt --check
   cd override && vp fmt --check
+
+i:
+  cd nested && vp i
+  cd override && vp i

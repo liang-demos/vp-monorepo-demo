@@ -1,5 +1,7 @@
 import { defineConfig } from 'vite-plus'
 
+import { sharedLintRules } from './share-config.ts'
+
 export default defineConfig({
   fmt: {
     semi: false,
@@ -8,11 +10,7 @@ export default defineConfig({
     sortPackageJson: true,
   },
   lint: {
-    plugins: ['typescript', 'unicorn'],
-    rules: {
-      'import/no-default-export': 'warn',
-      'no-console': 'error',
-      'unicorn/filename-case': 'off',
-    },
+    plugins: ['typescript', 'unicorn', 'eslint'],
+    rules: sharedLintRules,
   },
 })
