@@ -1,29 +1,27 @@
 # Vite+ nested config vs root overrides
 
-This repository keeps two copies of the same monorepo:
+This is an demo of the problem mentioned in [voidzero-dev/vite-plus#997(4794)](https://github.com/voidzero-dev/vite-plus/issues/997#issuecomment-4794853013).
 
-- `nested/` shows the desired nested `vite.config.ts` model.
-- `override/` expresses the same lint and format intent with the currently
-  supported root `lint.overrides` and `fmt.overrides`.
-
-The examples cover:
-
-- a Node.js CLI with `console.log`, the Node lint plugin, and Vue TUI files;
-- a Vue website with a colocated fake package;
-- a library that contains a CLI entry and only overrides those CLI files.
-
-Vite+ currently reads workspace lint and format configuration from the root `vite.config.ts`. The nested package configs are intentionally illustrative and are not expected to make `vp lint` pass yet.
-
-## Formatting
-
-Format both workspaces:
+The demo is basically a workspace managed with pnpm and Vite+, it has two sub packages and some root level files (scripts)
 
 ```bash
-just fmt
+.
+├── vite.config.ts
+├── scripts
+│   └── <some runnable scripts files, it is part of root>
+├── package_a
+│   ├── vite.config.ts
+│   └── <some project code>
+└── package_b
+    ├── vite.config.ts
+    └── <some project code>
 ```
 
-Check both workspaces before committing:
+In this workspace, most of files are normal typescript files, so we hope to enable workspace-level `typescript` plugin. However, code in `package_b` is not expected to be linted with `typescript` rules for some reasons (like copied from upstream, generated type, migrating project).
 
-```bash
-just
-```
+`nested` and `override` are two config styles to achieve this goal. For now, Vite+ does not support `nested` config because the `-c` injection, we can use `VP_VERSION=1 oxlint` instead.
+
+Some core files:
+
+- [`nested/share-config.ts`](./nested/share-config.ts), includes the config for `package_a` and project root.
+- [`override/package_b/vite.config.ts`](./override/package_b/vite.config.ts), includes the code we disable all `typescript` rules by hand.
